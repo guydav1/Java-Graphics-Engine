@@ -44,11 +44,13 @@ public class Game implements Runnable {
 
 	private void init() {
 		display = new Display(title, WIDTH, HEIGHT);
-		
+
 	}
-int x = 0;
+
+	int x = 0;
+
 	private void update() {
-x++;
+		x++;
 	}
 
 	private void render() {
@@ -58,9 +60,12 @@ x++;
 			return;
 		}
 		g = bs.getDrawGraphics();
+
+		// Drawing
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 		g.drawRect(x, 0, 100, 100);
-		
+
+		// End Drawing
 		bs.show();
 		g.dispose();
 	}
@@ -68,28 +73,17 @@ x++;
 	public void run() {
 		init();
 		int fps = 60;
-		double nanoPerFrame = 1_000_000_000/fps;
+		double nanoPerFrame = 1_000_000_000 / fps;
 		double lastTime = System.nanoTime();
 		double currentTime;
-		int ticks = 0;
-		double timer;
 		while (isRunning) {
 			currentTime = System.nanoTime();
-			timer = currentTime - lastTime;
-			if(currentTime - lastTime >= nanoPerFrame) {
+			if (currentTime - lastTime >= nanoPerFrame) {
 				update();
 				render();
-				ticks++;
 				lastTime += nanoPerFrame;
 			}
-			if(timer >= 1_000_000_000) {
-			System.out.println(ticks);
-			ticks = 0;
-			timer = 0;
-			}
-			
-			
-			
+
 		}
 	}
 }
